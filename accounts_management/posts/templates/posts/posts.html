@@ -1,0 +1,31 @@
+<h3>{{user.username}}</h3>
+<h2>Создание постов:</h2>
+{{user_groups}}
+{% if 'Writers' in user_groups %}
+<form action="{% url 'posts:post_create' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit">
+</form>
+{% else %}
+    {# Пользователь НЕ принадлежит группе 'Readers' #}
+    <p>Вы не являетесь читателем.</p>
+{% endif %}
+
+
+<h2>Список постов:</h2  >
+    {% if 'Readers' in user_groups %}
+{% for post in posts %}
+<h2>{{post.title}}</h2>
+<p>{{post.text}}</p>
+<h4>{{post.author}}</h4>
+<hr>
+{% endfor %}
+{% else %}
+    {# Пользователь НЕ принадлежит группе 'Readers' #}
+    <p>Вы не являетесь читателем.</p>
+{% endif %}
+
+
+
+

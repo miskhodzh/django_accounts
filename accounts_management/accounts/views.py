@@ -4,9 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User, Group
+
 @login_required
 def index(request):
     template = 'accounts/index.html'
+    print(request.user.groups.all())
     return render(request, template)
 
 def user_login(request):
